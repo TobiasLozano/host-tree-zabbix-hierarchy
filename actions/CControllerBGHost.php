@@ -97,8 +97,11 @@ abstract class CControllerBGHost extends CController {
 
 		foreach ($groups as $group) {
 			$groupname_full = $group['name'];
-			$groupid = $group['groupid'];
-
+			$groupid = $group['groupid'];		
+		// Skip "Applications" group and its subgroups
+		if ($groupname_full === 'Applications' || strpos($groupname_full, 'Applications/') === 0) {
+			continue;
+		}
 			// Find number of hosts
 			$hc = API::Host()->get([
 				'groupids' => $group['groupid'],
